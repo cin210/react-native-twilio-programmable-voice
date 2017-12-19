@@ -93,6 +93,36 @@ const Twilio = {
             TwilioVoice.unregister()
         }
     },
+    addDeviceReadyListener(handler) {
+        addEventListener('deviceReady', handler)
+    },
+    removeDeviceReadyListener(handler) {
+        removeEventListener('deviceReady', handler)
+    },
+    addDeviceNotReadyListener(handler) {
+        addEventListener('deviceNotReady', handler)
+    },
+    removeDeviceNotReadyListener(handler) {
+        removeEventListener('deviceNotReady', handler)
+    },
+    addReceiveIncomingListener(handler) {
+        addEventListener('deviceDidReceiveIncoming', handler)
+    },
+    removeReceiveIncomingListener(handler) {
+        removeEventListener('deviceDidReceiveIncoming', handler)
+    },
+    addConnectionConnectListener(handler) {
+        addEventListener('connectionDidConnect', handler)
+    },
+    removeConnectionConnectListener(handler) {
+        removeEventListener('connectionDidConnect', handler)
+    },
+    addCallRejectedListener(handler) {
+        addEventListener('callRejected', handler)
+    },
+    removeCallRejectedListener(handler) {
+        removeEventListener('callRejected', handler)
+    },
     addEventListener(type, handler) {
         if (_eventHandlers[type].has(handler)) {
             return
