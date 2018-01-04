@@ -94,34 +94,34 @@ const Twilio = {
         }
     },
     addDeviceReadyListener(handler) {
-        addEventListener('deviceReady', handler)
+        this.addEventListener('deviceReady', handler)
     },
     removeDeviceReadyListener(handler) {
-        removeEventListener('deviceReady', handler)
+        this.removeEventListener('deviceReady', handler)
     },
     addDeviceNotReadyListener(handler) {
-        addEventListener('deviceNotReady', handler)
+        this.addEventListener('deviceNotReady', handler)
     },
     removeDeviceNotReadyListener(handler) {
-        removeEventListener('deviceNotReady', handler)
+        this.removeEventListener('deviceNotReady', handler)
     },
     addReceiveIncomingListener(handler) {
-        addEventListener('deviceDidReceiveIncoming', handler)
+        this.addEventListener('deviceDidReceiveIncoming', handler)
     },
     removeReceiveIncomingListener(handler) {
-        removeEventListener('deviceDidReceiveIncoming', handler)
+        this.removeEventListener('deviceDidReceiveIncoming', handler)
     },
     addConnectionConnectListener(handler) {
-        addEventListener('connectionDidConnect', handler)
+        this.addEventListener('connectionDidConnect', handler)
     },
     removeConnectionConnectListener(handler) {
-        removeEventListener('connectionDidConnect', handler)
+        this.removeEventListener('connectionDidConnect', handler)
     },
     addCallRejectedListener(handler) {
-        addEventListener('callRejected', handler)
+        this.addEventListener('callRejected', handler)
     },
     removeCallRejectedListener(handler) {
-        removeEventListener('callRejected', handler)
+        this.removeEventListener('callRejected', handler)
     },
     addEventListener(type, handler) {
         if (_eventHandlers[type].has(handler)) {
