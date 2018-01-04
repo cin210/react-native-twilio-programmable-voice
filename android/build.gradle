@@ -1,12 +1,14 @@
+//noinspection GradleCompatible
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
-        classpath 'com.google.gms:google-services:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.google.gms:google-services:3.1.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -16,9 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
+        google()
     }
 }
 
@@ -26,7 +26,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '26.0.3'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
@@ -43,11 +43,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.twilio:voice-android:2.0.0-beta24'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:support-compat:26.1.0'
-    compile 'com.facebook.react:react-native:+'
-    compile 'com.google.firebase:firebase-messaging:10.+'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.twilio:voice-android:2.0.1'
+
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+
+    implementation 'com.facebook.react:react-native:+'
+
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    testImplementation 'junit:junit:4.12'
 }
