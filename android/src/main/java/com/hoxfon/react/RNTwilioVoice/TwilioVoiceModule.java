@@ -156,17 +156,16 @@ public class TwilioVoiceModule extends ReactContextBaseJavaModule implements Act
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, TAG);
 
         keyguardManager = (KeyguardManager) reactContext.getSystemService(Context.KEYGUARD_SERVICE);
+    }
 
+    @Override
+    public void onHostResume() {
         /*
          * Ensure the microphone permission is enabled
          */
         if (!checkPermissionForMicrophone()) {
             requestPermissionForMicrophone();
         }
-    }
-
-    @Override
-    public void onHostResume() {
         /*
          * Enable changing the volume using the up/down keys during a conversation
          */
