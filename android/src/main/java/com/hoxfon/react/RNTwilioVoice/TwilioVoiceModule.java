@@ -95,6 +95,7 @@ public class TwilioVoiceModule extends ReactContextBaseJavaModule implements Act
     private NotificationManager notificationManager;
     private CallNotificationManager callNotificationManager;
     private ProximityManager proximityManager;
+    private PhoneCallManager phoneCallManager;
 
     private String accessToken;
 
@@ -133,6 +134,7 @@ public class TwilioVoiceModule extends ReactContextBaseJavaModule implements Act
         callNotificationManager = new CallNotificationManager();
         proximityManager = new ProximityManager(reactContext, eventManager);
         headsetManager = new HeadsetManager(eventManager);
+        phoneCallManager = new PhoneCallManager(reactContext, eventManager);
 
         notificationManager = (android.app.NotificationManager) reactContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -156,16 +158,14 @@ public class TwilioVoiceModule extends ReactContextBaseJavaModule implements Act
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, TAG);
 
         keyguardManager = (KeyguardManager) reactContext.getSystemService(Context.KEYGUARD_SERVICE);
+
+        if (!checkPermissionForMicrophone()) {
+            requestPermissionForMicrophone();
+        }
     }
 
     @Override
     public void onHostResume() {
-        /*
-         * Ensure the microphone permission is enabled
-         */
-        if (!checkPermissionForMicrophone()) {
-            requestPermissionForMicrophone();
-        }
         /*
          * Enable changing the volume using the up/down keys during a conversation
          */
@@ -330,7 +330,9 @@ public class TwilioVoiceModule extends ReactContextBaseJavaModule implements Act
             intentFilter.addAction(ACTION_MISSED_CALL);
             LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(
                     voiceBroadcastReceiver, intentFilter);
+
             registerActionReceiver();
+
             isReceiverRegistered = true;
         }
     }
@@ -704,6 +706,11 @@ public class TwilioVoiceModule extends ReactContextBaseJavaModule implements Act
         // TODO check whether it is necessary to call setAudioFocus again
 //        setAudioFocus();
         audioManager.setSpeakerphoneOn(value);
+    }
+
+    @ReactMethod
+    public void getIsHeadphonesConnected(Promise promise) {
+        promise.resolve(audioManager.isWiredHeadsetOn());
     }
 
     private void setAudioFocus() {

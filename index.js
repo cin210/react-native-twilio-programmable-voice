@@ -17,6 +17,11 @@ const _eventHandlers = {
     deviceDidReceiveIncoming: new Map(),
     connectionDidConnect: new Map(),
     connectionDidDisconnect: new Map(),
+    //android specific
+    phoneCallStarted: new Map(),
+    phoneCallEnded: new Map(),
+    proximity: new Map(),
+    wiredHeadset: new Map(),
     //iOS specific
     callRejected: new Map(),
 }
@@ -71,6 +76,9 @@ const Twilio = {
     },
     setSpeakerPhone(value) {
         TwilioVoice.setSpeakerPhone(value)
+    },
+    isHeadphonesConnected() {
+        return TwilioVoice.getIsHeadphonesConnected()
     },
     sendDigits(digits) {
         TwilioVoice.sendDigits(digits)
